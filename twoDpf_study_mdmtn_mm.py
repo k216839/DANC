@@ -14,6 +14,7 @@ from config import get_params
 main_dir = "logs/MDMTN_MM_logs/Pareto_Front_Study"
 mod_logdir = "MDMTN_model_MM_PF_onek"
 archi_name = "MDMTN"
+data_name = "MultiMnist"
 Sparsity_study = False
 num_model = 0
 
@@ -22,7 +23,7 @@ ws = get_pref_vects(k0)
 
 if __name__ == "__main__":
 
-    SPARSE_MODEL_FILE = "src/Sparse_models/model000.pth"
+    SPARSE_MODEL_FILE = "src/Sparse_models/Sparse_MDMTN_model_I.pth"
 
     if not os.path.exists(SPARSE_MODEL_FILE):
         raise ValueError("No sparse model found ! First, find the preference vector k that yields the best model performance and save the obtained model in the directory `src/Sparse_models/")
@@ -33,17 +34,17 @@ if __name__ == "__main__":
         if use_cuda == False:
             print("WARNING: CPU will be used for training.")
 
-        inst_model, Multimnist_params, GrOWL_parameters = get_params(ws[0], archi_name, main_dir, mod_logdir, num_model, Sparsity_study)
+        inst_model, Multimnist_params, GrOWL_parameters = get_params(ws[0], archi_name, data_name, main_dir, mod_logdir, num_model, Sparsity_study)
 
         Multimnist_params["device"] = device
 
         train_loader, val_loader, test_loader = load_MultiMnist_data()
 
-        if not os.path.exists("Images"):
-            os.makedirs("Images")
+        if not os.path.exists("%s/%s"%("Images", data_name)):
+            os.makedirs("%s/%s"%("Images", data_name))
 
         Train_Test_PFstudy(ws, train_loader, val_loader, test_loader, Multimnist_params,
-                        SPARSE_MODEL_FILE, archi_name, inst_model)
+                        SPARSE_MODEL_FILE, data_name, archi_name, inst_model)
 
         
         #####################################################################################

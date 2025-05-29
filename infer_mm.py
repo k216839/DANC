@@ -8,6 +8,7 @@ k = [0.001, 0.2, 0.799]
 main_dir = "logs/MDMTN_MM_logs"
 mod_logdir = "MDMTN_model_MM_onek"
 archi_name = "MDMTN"
+data_name = "MultiMnist"
 num_model = 0
 if k[0] == 0:
     Sparsity_study = False
@@ -19,7 +20,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
 
 # ----- Load tham số và mô hình -----
-model, Multimnist_params, GrOWL_parameters = get_params(k, archi_name, main_dir, mod_logdir, num_model, Sparsity_study)
+model, Multimnist_params, GrOWL_parameters = get_params(k, archi_name, data_name, main_dir, mod_logdir, num_model, Sparsity_study)
 
 
 # ----- Load trọng số mô hình đã huấn luyện -----

@@ -72,7 +72,7 @@ def eps_dominance(Obj_space, epsilon, start = 0):
     return PS_idx
 
 def Train_Test_PFstudy(ws, train_loader, val_loader, test_loader, params,
-                       SPARSE_MODEL_FILE, archi_name, inst_model):
+                       SPARSE_MODEL_FILE, data_name, archi_name, inst_model):
     from time import time
     # Start timer
     import datetime
