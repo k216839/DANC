@@ -10,6 +10,7 @@ k = [0.001, 0.2, 0.799] # (k_0, k_1, k_2)
 main_dir = "logs/MDMTN_MM_logs"
 mod_logdir = "MDMTN_model_MM_onek"
 archi_name = "MDMTN"
+data_name = "MultiMnist"
 num_model = 0
 if k[0] == 0:
     Sparsity_study = False
@@ -24,7 +25,7 @@ if __name__ == "__main__":
     if use_cuda == False:
         print("WARNING: CPU will be used for training.")
 
-    model, Multimnist_params, GrOWL_parameters = get_params(k, archi_name, main_dir, mod_logdir, num_model, Sparsity_study)
+    model, Multimnist_params, GrOWL_parameters = get_params(k, archi_name, data_name, main_dir, mod_logdir, num_model, Sparsity_study)
 
     Multimnist_params["device"] = device
 

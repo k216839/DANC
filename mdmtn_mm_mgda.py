@@ -13,7 +13,7 @@ _params_t = Union[Iterable[Tensor], Iterable[dict]]
 
 model_dir_path = "logs/MDMTN_MM_logs/MGDA_model_logs/model_states"
 archi_name = "MDMTN"
-
+data_name = "MultiMnist"
 if __name__ == "__main__":
 
     # Choose device
@@ -22,9 +22,9 @@ if __name__ == "__main__":
     if use_cuda == False:
         print("WARNING: CPU will be used for training.")
 
-    model, Multimnist_params_mgda = get_params_mgda(archi_name.lower(), model_dir_path, device)
+    model, Multimnist_params_mgda = get_params_mgda(archi_name.lower(), data_name, model_dir_path, device)
 
-    train_losses, test_accuracies = train_test_MGDA(model, Multimnist_params_mgda, device)
+    train_losses, test_accuracies = train_test_MGDA(model, data_name, Multimnist_params_mgda, device)
 
     import pickle
 

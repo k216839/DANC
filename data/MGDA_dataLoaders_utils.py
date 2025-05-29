@@ -12,7 +12,7 @@ import pickle
 from typing import Iterable, Union
 _params_t = Union[Iterable[Tensor], Iterable[dict]]
 from data.get_multimnist_dataset import get_dataset
-
+from data.cifar10mnist_dataset import PaddedDataset, create_cifar10mnist
 
 class MGDA_Data:
     """
@@ -93,6 +93,34 @@ class MGDA_Data:
             plt.imshow(torch.tensor(img).squeeze(), cmap="gray")
         plt.show()   
 
+def Cifar10Mnist_dataset():
+
+    data_path = "Data/Cifar10Mnist"
+
+    if not path.exists(path.join(data_path, "test_10k_CIFAR_MNIST.pkl")) or not path.exists(path.join(data_path, "train_50k_CIFAR_MNIST.pkl")):
+         _, train_50k_images, test_10k_images = create_cifar10mnist()
+    else:
+        with open(f'{data_path}/train_50k_CIFAR_MNIST.pkl', 'rb') as f:
+            train_50k_images = pickle.load(f)
+        with open(f'{data_path}/test_10k_CIFAR_MNIST.pkl', 'rb') as f:
+            test_10k_images = pickle.load(f)
+
+    transform_train = transforms.Compose([transforms.ToTensor(),
+                                            transforms.Lambda(lambda x: np.transpose(x, (1, 2, 0))),
+                                            transforms.Lambda(lambda x: np.array(x))  # Convert to NumPy array
+                                            ])
+
+    transform_test = transforms.Compose([transforms.ToTensor(),
+                                            transforms.Lambda(lambda x: np.transpose(x, (1, 2, 0))),
+                                            transforms.Lambda(lambda x: np.array(x))  # Convert to NumPy array
+                                            ])
+
+
+    # Create PyTorch datasets for the padded images
+    train_50k_dataset = PaddedDataset(train_50k_images, transform = transform_train)
+    test_10k_dataset = PaddedDataset(test_10k_images, transform = transform_test)
+
+    return train_50k_dataset, test_10k_dataset
 
 def MultiMnist_dataset():
     

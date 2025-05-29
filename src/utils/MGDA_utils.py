@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from typing import Iterable, Union
 _params_t = Union[Iterable[Tensor], Iterable[dict]]
 
-from data.MGDA_dataLoaders_utils import MGDA_Data, MultiMnist_dataset
+from data.MGDA_dataLoaders_utils import MGDA_Data, MultiMnist_dataset, Cifar10Mnist_dataset
 
 #######################################
 #####  Helper functions for MGDA #####
@@ -187,6 +187,34 @@ def one_hot_encode_data(array):
     return res
 
 #############################
+def load_Cifar10Mnist_mgda():
+
+    print("Retrieving data...")
+
+    cifar_labels = {
+        0: "Airplane", 1: "Automobile", 2: "Bird", 3: "Cat", 4: "Deer",
+        5: "Dog", 6: "Frog", 7: "Horse", 8: "Ship", 9: "Truck"
+    }
+
+    data_train, data_test = Cifar10Mnist_dataset()
+
+    X_train, y_train = zip(*data_train)
+    X_test, y_test = zip(*data_test)
+
+    X_train = np.array(X_train)
+    X_test = np.array(X_test)
+
+    plt.imshow(data_train[0][0])
+    plt.title(f'{(cifar_labels[y_train[0][0]], y_train[0][1])}')
+    plt.show()
+
+    y_train = np.array(one_hot_encode_data(y_train))
+    y_test = np.array(one_hot_encode_data(y_test))
+
+    print("Data is loaded")
+
+    return X_train, X_test, y_train, y_test
+
 
 def load_MultiMnist_mgda():
 
@@ -211,7 +239,7 @@ def load_MultiMnist_mgda():
 
     return X_train, X_test, y_train, y_test
 
-def train_test_MGDA(model, mod_params_mgda, device):
+def train_test_MGDA(model, data_name, mod_params_mgda, device):
     model_repetitions = mod_params_mgda["model_repetitions"]
     training_epochs = mod_params_mgda["training_epochs"]
     archi = mod_params_mgda["archi"]
@@ -224,8 +252,11 @@ def train_test_MGDA(model, mod_params_mgda, device):
     if not os.path.exists(model_dir_path):
         os.makedirs(model_dir_path)
 
-
-    X_train, X_test, y_train, y_test = load_MultiMnist_mgda()
+    if data_name == "Cifar10Mnist":
+        X_train, X_test, y_train, y_test = load_Cifar10Mnist_mgda()
+    elif data_name == "MultiMnist":
+        X_train, X_test, y_train, y_test = load_MultiMnist_mgda()
+    else: raise ValueError(f"Unknown dataset {data_name} !")
     
     train_losses = []
 
