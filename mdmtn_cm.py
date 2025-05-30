@@ -3,7 +3,7 @@ import torch
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-from train_and_test_model_CM import train_and_test_model_CM # for Cifar10Mnist dataset
+import train_and_test_model_CM # for Cifar10Mnist dataset
 # from Train_and_Test import train_and_test_model_MM # for MultiMnist dataset
 from config import get_params
 
