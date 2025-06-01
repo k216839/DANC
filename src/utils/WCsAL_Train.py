@@ -170,7 +170,7 @@ def train_multitask_model(train_loader, val_loader, model,
     else:
         print("Could not find a model with the required sparsity rate!\n The model with the highest accuracy has been returned!")
         # model.load_state_dict(torch.load(DRAFT_MODEL_FILE))
-        model = torch.load(DRAFT_MODEL_FILE)
+        model = torch.load(DRAFT_MODEL_FILE, weights_only=False)
         
     tr_metrics, _ = metrics_tr(model, verbose = False)
             
