@@ -13,49 +13,6 @@ from src.utils.WCsAL_Test import test_multitask_model
 #####  Helper functions for the additional (2D) Pareto front study #####
 ########################################################################
 
-def get_indx_p(points, j, d):
-    indices = []
-    for i, point in enumerate(points):
-        distance = abs(point - points[j])
-        if distance <= d:
-            indices.append(i)
-    return indices
-
-def gen_rand_c(seed):
-    random.seed(seed)
-    r = random.randint(0, 255)/255  # Random red value between 0 and 255
-    g = random.randint(0, 255)/255  # Random green value between 0 and 255
-    b = random.randint(0, 255)/255  # Random blue value between 0 and 255
-    return (r, g, b)  # Return the RGB values as a tuple
-
-def neigh_clts(x, y, z, d = 0.1, c_seed = 42):
-    k = 0
-    n = len(z)
-    classes = np.zeros(n)
-    centroids = []
-    c = ["green", "blue", "red", "black", "magenta",
- "orange", "yellow", "purple", "cyan", "violet"]
-    
-    done_idx = []
-    groups = []
-    for i in range(n):
-        if i not in set(done_idx): 
-            idx_prox = get_indx_p(z, i, d)
-            new_idx = list(set(idx_prox)-set(done_idx))
-            classes[new_idx] = k
-            groups.append(new_idx)
-            centroids.append(np.mean(np.array(z)[new_idx]))
-            k += 1
-            done_idx = done_idx + new_idx
-    clusters = np.unique(classes)
-    if len(clusters) > len(c):
-        colors = [gen_rand_c(seed = c_seed+i) for i in range(len(clusters))]
-    else:
-        colors = c[0:len(clusters)]
-    colors = np.array(colors)[np.digitize(classes, clusters) - 1]
-    print("Num clusters: ", len(clusters))
-    return classes.tolist(), clusters.tolist(), colors.tolist(), centroids, groups
-
 def eps_dominance(Obj_space, epsilon, start = 0):
     N = len(Obj_space)
     Pareto_set_idx =  list(range(N))

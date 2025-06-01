@@ -66,33 +66,6 @@ class MGDA_Data:
     def one_hot_encode(num, length=10):
         return [int(num == index) for index in range(length)]
 
-    @staticmethod
-    def one_hot_decode(array):
-        return np.where(array == 1)[0][0]
-
-    @staticmethod
-    def visualize_training_data(X, y):
-        # Create figure w. 9 pictures
-        figure = plt.figure(figsize=(8, 8))
-        cols, rows = 3, 3
-
-        # Set each figure individually
-        for i in range(1, cols * rows + 1):
-            # takes random sample (using random sample index)
-            sample_idx = torch.randint(len(X), size=(1,)).item()
-
-            # Training data accessed by indexing returns img, label-tuple
-            img, label = X[sample_idx], y[sample_idx]
-
-            # Adds/Connects all subplots
-            figure.add_subplot(rows, cols, i)
-
-            # Add labels an description
-            plt.title(str(label))
-            plt.axis("off")
-            plt.imshow(torch.tensor(img).squeeze(), cmap="gray")
-        plt.show()   
-
 def Cifar10Mnist_dataset():
 
     data_path = "Data/Cifar10Mnist"

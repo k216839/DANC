@@ -100,31 +100,3 @@ def create_cifar10mnist():
         pickle.dump(test_10k_images, f)
     
     return train_60k_images, train_50k_images, test_10k_images
-
-if __name__ == "__main__":
-    
-    train_60k_images, train_50k_images, test_10k_images = create_cifar10mnist()
-    
-    # Classes for CIFAR-10
-    cifar10_classes = ('Airplane', 'Automobile', 'Bird', 'Cat', 'Deer',
-            'Dog', 'Frog', 'Horse', 'Ship', 'Truck')
-
-    import matplotlib.pyplot as plt
-
-    # Get the first 10 images from the train dataset
-    images, labels = zip(*train_50k_images[:10])
-
-    # Create a figure with subplots for each image
-    fig, axes = plt.subplots(nrows=2, ncols=5)
-
-    # Loop through the images and labels and display them in the subplots
-    for i, (image, label) in enumerate(zip(images, labels)):
-        row = i // 5
-        col = i % 5
-        ax = axes[row, col]
-        ax.imshow(image)
-        ax.set_title(f'{(cifar10_classes[label[0]], label[1])}')
-        ax.axis('off')
-    plt.tight_layout()
-    plt.savefig("data/Cifar10Mnist/first_10_images.png")
-    plt.show()

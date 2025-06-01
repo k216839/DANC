@@ -16,17 +16,8 @@ def create_GrOWL_params(model, n):
         if tp == "spike":
             teta_is = [beta1 + beta2] + [beta2]*(n-1)
             return teta_is
-        if tp == "linear":
-            teta_is = [beta1 + beta2*(n-i)/n for i in range(1, n+1)]
-            return teta_is
-        if tp == "Dejiao":
-            p = int(n/2)
-            teta_is_1 = [beta1 + beta2*(p-i+1) for i in range(1, p+1)]
-            teta_is_2 = [beta2]*(n-p)
-            teta_is = teta_is_1 + teta_is_2
-            return teta_is
         else:
-            raise ValueError("Type should be 'spike', 'linear', or 'Dejiao'!")
+            raise ValueError("Type should be 'spike'")
         ###############################         
             
 def apply_growl(model,):
