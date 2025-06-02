@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 from src.utils.PFstudy_utils import eps_dominance
 
 # === CONFIG ===
-main_dir = "logs/MDMTN_MM_logs/Pareto_Front_Study"
+main_dir = "logs/MDMTN_CM_logs/Pareto_Front_Study"
 archi_name = "MDMTN"
-k0 = 0.001
+k0 = 0.01
 ws_file = f"{main_dir}/PFstudy_results_k0is_{str(k0)}.pkl"
 
 # === LOAD ===
