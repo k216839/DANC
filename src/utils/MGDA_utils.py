@@ -204,9 +204,9 @@ def load_Cifar10Mnist_mgda():
     X_train = np.array(X_train)
     X_test = np.array(X_test)
 
-    plt.imshow(data_train[0][0])
-    plt.title(f'{(cifar_labels[y_train[0][0]], y_train[0][1])}')
-    plt.show()
+    # plt.imshow(data_train[0][0])
+    # plt.title(f'{(cifar_labels[y_train[0][0]], y_train[0][1])}')
+    # plt.show()
 
     y_train = np.array(one_hot_encode_data(y_train))
     y_test = np.array(one_hot_encode_data(y_test))

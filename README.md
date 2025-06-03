@@ -20,38 +20,25 @@ cd Code
 pip install -r requirements.txt
 ```
 ## Run
-### MDMTN
-```bash
-cd MDMTN
-```
-#### MGDA
+#### MultiMNIST
 ```bash
 #training
-python mdmtn_mgda.py
-
+python mdmtn_mm_mgda.py
+python mdmtn_mm.py
 #infer
-python infer_mgda.py
+python infer_mm_mgda.py
+python infer_mm.py
+# Plot 2D Pareto
+python twoDpf_study_mdmtn_mm.py
 ```
-#### Adam
+#### Cifar10Mnist
 ```bash
 #training
-python mdmtn.py
-
+python mdmtn_cm_mgda.py
+python mdmtn_cm.py
 #infer
-python infer.py
-```
-#### Plot 2D Pareto
-```bash
-python twoDpf_study_mdmtn.py
-```
-### PMTL
-```bash
-cd PMTL
-```
-```bash
-#training
-python main.py
-
-#infer
-python infer.py
+python infer_cm_mgda.py
+python infer_cm.py
+# Plot 2D Pareto
+python twoDpf_study_mdmtn_cm.py
 ```
