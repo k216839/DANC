@@ -6,7 +6,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 from train_and_test_model_MM import train_and_test_model_MM
 from config import get_params
 
-k = [0.001, 0.2, 0.799] # (k_0, k_1, k_2)
+k = [0.001, 0.099, 0.9] # (k_0, k_1, k_2)
 main_dir = "logs/MDMTN_MM_logs"
 mod_logdir = "MDMTN_model_MM_onek"
 archi_name = "MDMTN"

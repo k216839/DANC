@@ -4,7 +4,7 @@ from train_and_test_model_CM import load_Cifar10Mnist_data
 import matplotlib.pyplot as plt
 
 # ----- Thông số giống như khi train -----
-k = [1e-2, 0.8, 0.19]
+k = [1e-2, 0.09, 0.9]
 main_dir = "logs/MDMTN_CM_logs"
 mod_logdir = "MDMTN_model_CM_onek"
 archi_name = "MDMTN"
@@ -44,21 +44,28 @@ output1 = torch.argmax(outputs[0], dim=1).cpu()
 output2 = torch.argmax(outputs[1], dim=1).cpu()
 data = data.cpu()
 target = target.cpu()
+
+def unnormalize(img_tensor):
+    mean = torch.tensor([0.4914, 0.4822, 0.4465]).view(3, 1, 1)
+    std = torch.tensor([0.2023, 0.1994, 0.2010]).view(3, 1, 1)
+    return img_tensor * std + mean
+
 cifar10_classes = ('Airplane', 'Automobile', 'Bird', 'Cat', 'Deer',
                    'Dog', 'Frog', 'Horse', 'Ship', 'Truck')
-fig, axes = plt.subplots(2, 5, figsize=(20, 6))
+fig, axes = plt.subplots(3, 3, figsize=(15, 6))
 for i, ax in enumerate(axes.flat):
     if i >= len(data):
         break
-
-    img = data[i].permute(1, 2, 0)
+    img = unnormalize(data[i])
+    img = torch.clamp(img, 0, 1)  # Đảm bảo ảnh hợp lệ
+    img = img.permute(1, 2, 0).numpy()
     ax.imshow(img, cmap='gray')
     ax.axis("off")
 
     gt_label = f"{cifar10_classes[target[i][0].item()]} {target[i][1].item()}"
     pred_label = f"{cifar10_classes[output1[i].item()]} {output2[i].item()}"
     # ax.set_title(f"GT: {gt_label} | Pred: {pred_label}")
-    ax.set_title(f"GT: {gt_label} | Pred: {pred_label}", fontsize=16)
+    ax.set_title(f"GT: {gt_label} | Pred: {pred_label}", fontsize=20)
 plt.tight_layout()
 plt.show()
 

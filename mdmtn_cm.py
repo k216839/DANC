@@ -7,7 +7,7 @@ from train_and_test_model_CM import train_and_test_model_CM # for Cifar10Mnist d
 # from Train_and_Test import train_and_test_model_MM # for MultiMnist dataset
 from config import get_params
 
-k = [1e-2, 0.8, 0.19] # (k_0, k_1, k_2)
+k = [1e-2, 0.09, 0.9] # (k_0, k_1, k_2)
 main_dir = "logs/MDMTN_CM_logs"
 mod_logdir = "MDMTN_model_CM_onek"
 archi_name = "MDMTN"

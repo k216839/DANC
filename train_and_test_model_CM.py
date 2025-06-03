@@ -26,22 +26,6 @@ def load_Cifar10Mnist_data():
     transformers = [train_transform, test_transform] # [None, None]
     train_loader, val_loader, test_loader = Cifar10Mnist_loaders(data_path, split_rate, transformers, batch_size)
     print("Data loaded!")
-
-    cifar10_classes = ('Airplane', 'Automobile', 'Bird', 'Cat', 'Deer',
-            'Dog', 'Frog', 'Horse', 'Ship', 'Truck')
-
-    print("Show sample image...")
-    # Get the first batch from the train loader
-    train_dataiter = iter(train_loader)
-    images, targets = next(train_dataiter)
-    img = images[0]
-    plt.figure(figsize=(5, 5))
-    img = np.transpose(img, (1, 2, 0))
-    plt.imshow(img)
-    plt.title(f'{(cifar10_classes[targets[0][0]], targets[1][0].item())}')
-    plt.axis('off')
-    plt.show()
-
     return train_loader, val_loader, test_loader 
 
 def train_and_test_model_CM(model, Cifar10mnist_params):

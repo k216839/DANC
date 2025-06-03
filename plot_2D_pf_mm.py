@@ -68,7 +68,7 @@ plt.plot(fcurve1, fcurve2, color="green", linestyle = "--")
 # Set labels for the axes
 plt.xlabel('Task 1')
 plt.ylabel('Task 2')
-plt.title(f'2D Pareto Front (Main objective functions)')
+plt.title(f'Hình chiếu 2D của mặt Pareto')
 plt.legend()
 plt.subplots_adjust(wspace=0.3)
 plt.savefig(f'Images/TwoDParetoFrontStudy_{archi_name}_k0is_{str(k0)}..png', dpi=300)
